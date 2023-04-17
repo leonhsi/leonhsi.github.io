@@ -1,0 +1,10 @@
+http://leonhsi.github.io/2023/04/17/Simple-Bank-Lecture-12-Load-Config-By-Viper/
+http://leonhsi.github.io/2023/04/17/Simple-Bank-Lecture-09-Isolation-Level/
+http://leonhsi.github.io/2023/04/17/Simple-Bank-Lecture-08-Avoid-Deadlock/
+http://leonhsi.github.io/2023/04/17/Simple-Bank-Lecture-07-DB-Trasaction-Lock/
+http://leonhsi.github.io/2023/04/17/Simple-Bank-Lecture-11-RESTful-API-with-GIN/
+http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/
+http://leonhsi.github.io/2023/04/15/hello-world/
+http://leonhsi.github.io/
+http://leonhsi.github.io/tags/nvim/
+http://leonhsi.github.io/tags/simple-bank-backend/
