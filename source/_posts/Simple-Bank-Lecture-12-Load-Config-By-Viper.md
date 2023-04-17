@@ -1,6 +1,6 @@
 ---
 title: Simple Bank, Lecture 12 - Load Config By Viper 
-date: 2023-04-16 15:28:25
+date: 2023-04-17 22:28:25
 tags: simple-bank, backend
 ---
 
