@@ -1,5 +1,7 @@
-http://leonhsi.github.io/about/index.html
-http://leonhsi.github.io/2023/04/18/Simple-Bank-Backend-Project-Notes/
 http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/
+http://leonhsi.github.io/2023/04/18/Simple-Bank-Backend-Project-Notes/
+http://leonhsi.github.io/about/index.html
 http://leonhsi.github.io/
 http://leonhsi.github.io/tags/nvim/
+http://leonhsi.github.io/tags/simple-bank/
+http://leonhsi.github.io/tags/bankend/

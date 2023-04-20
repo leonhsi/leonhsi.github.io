@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://leonhsi.github.io/about/index.html</loc>
+    <loc>http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/</loc>
     
     <lastmod>2023-04-20</lastmod>
     
@@ -13,16 +13,16 @@
   <url>
     <loc>http://leonhsi.github.io/2023/04/18/Simple-Bank-Backend-Project-Notes/</loc>
     
-    <lastmod>2023-04-18</lastmod>
+    <lastmod>2023-04-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/</loc>
+    <loc>http://leonhsi.github.io/about/index.html</loc>
     
-    <lastmod>2023-04-17</lastmod>
+    <lastmod>2023-04-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -39,6 +39,20 @@
   
   <url>
     <loc>http://leonhsi.github.io/tags/nvim/</loc>
+    <lastmod>2023-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/tags/simple-bank/</loc>
+    <lastmod>2023-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/tags/bankend/</loc>
     <lastmod>2023-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
