@@ -5,14 +5,14 @@
 # Site
 title: Leon Hsi's Blog 
 subtitle: ''
-description: 'hihi'
+description: 'Hi, I am a software developer from Taiwan, and here has some random posts and trash.'
 keywords:
 author: Leon Hsi 
 language: en 
 timezone: 'Asia/Taipei'
 
-# URL
-## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+  # URL
+  ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: http://leonhsi.github.io
 root: /
 permalink: :year/:month/:day/:title/
@@ -99,7 +99,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: cactus-light 
+theme: cactus 
 
 # archive_generator:
 #     per_page: 0
