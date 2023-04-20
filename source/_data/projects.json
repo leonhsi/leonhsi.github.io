@@ -1,0 +1,27 @@
+[
+    {
+       "name":"Simple Bank: Backend Web Service for a Bank",
+       "url":"https://github.com/leonhsi/simple-bank",
+       "desc":"A basic backend service that can store data for a bank"
+    },
+    {
+       "name":"ARM Bare Metal Programming on Raspi-3",
+       "url":"http://github.com/leonhsi/Bare_Metal_Programming",
+       "desc":"Built a simple OS kernel under bare metal environment with ARM"
+    },
+    {
+       "name":"Parallelize Optimal Binary Search Tree with CUDA",
+       "url":"http://github.com/leonhsi/Parallelize_OBST",
+       "desc":"Implemented 3 different parallel versions of OBST with CUDA"
+    },
+    {
+       "name":"Text Mining of Public Opinion on Pandemic",
+       "url":"http://github.com/leonhsi/PTT_Common_Comments",
+       "desc":"A python web crawler to parse 100k+ posts related to pademic and analyze the semantics"
+    },
+    {
+       "name":"New System Call in Linux Kernel",
+       "url":"http://github.com/leonhsi/Linux_Kernel_System_Call",
+       "desc":"Designed a new system call to linux kernel which could print the kernel address space of a process"
+    }
+]

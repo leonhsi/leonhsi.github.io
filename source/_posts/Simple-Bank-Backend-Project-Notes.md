@@ -1,8 +1,61 @@
 ---
-title: Simple Bank, Lecture 09 - Isolation Level
-date: 2023-04-17 20:13:50
-tags: simple-bank, backend
+title: Simple Bank - Backend Project Notes
+date: 2023-04-18 19:24:51
+tags:
 ---
+
+[course list link](https://www.youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE)
+
+## Lecture 07: DB Trasnaction Lock
+```sql
+-- name: GetAccount :one
+SELECT * FROM accounts
+WHERE id = $1 LIMIT 1;
+```
+
+加上
+
+- **FOR UPDATE**
+    - 因為同時會有很多transaction去更新(select) account
+    - 若一個account被select, 但不block其他select account, 則account可能會無法被正確更新
+    - 加上FOR UPDATE: block其他query
+        - 這個query select的東西會被update, 所以sql會先block它
+
+- FOR **NO KEY** UPDATE
+    - 因為primary key不會update
+    - 告訴db說不要因為primary key被使用就block其他query
+
+```sql
+-- name: GetAccountForUpdate :one
+SELECT * FROM accounts
+WHERE id = $1 LIMIT 1
+FOR NO KEY UPDATE;
+```
+
+## Lecture 08: Avoid Deadlock
+avoid:
+
+- transaction 1:
+    - update id 1
+    - update id 2
+- transaction 2:
+    - update id 2
+    - update id 1
+
+**deadlock**!!
+
+change to:
+
+- transaction 1:
+    - update id 1
+    - update id 2
+- transaction 2:
+    - update id 1
+    - update id 2
+
+依照固定的order來更新id (小的先更新
+
+## Lecture 09: Isolation Level
 
 A database transaction should follow the **ACID** property:
 
@@ -149,3 +202,57 @@ Retry Mechanism
 [https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html)
 
 [https://www.postgresql.org/docs/current/transaction-iso.html](https://www.postgresql.org/docs/current/transaction-iso.html)
+
+## Lecture 11: RESTful API with GIN
+
+RESTful API:
+
+- 代表符合REST規範的API
+- HTTP為REST的實做
+- Client-Server
+- Stateless
+- Cache
+- Uniform Interface
+- Layered System
+- Code-On-Demand
+
+HTTP Request Method
+
+- GET：從指定的資源中獲取信息（一個或多個子資源), 不會更動到內部資源
+    - Read
+- POST：向指定的資源提交要被處理的數據。
+    - Create
+- PUT：將指定的資源用請求中的數據替換(更新)
+    - Update
+- DELETE：刪除指定的資源。
+    - Delete
+
+main.go
+
+- 連線至postgreSQL, 並在8080這個port上面聽取request
+
+server.go
+
+- 將接收到的request透過GIN的router去呼叫對應的handler
+
+account.go
+
+- 實作request的handler (跟account有關的, 像是POST ⇒ createAccount, GET ⇒ getAccount / listAccount)
+- 會呼叫account.sql.go裡的function來把data實際寫入到database裡面
+
+## Lecture 12: Load Config by Viper
+
+
+app.env:
+
+- specify the environment variable
+- no need to hard coded in go files
+
+config.go
+
+- use viper to load config files in a given path
+- read the .env files
+
+change main.go and main_test.go to read config through app.env
+
+
