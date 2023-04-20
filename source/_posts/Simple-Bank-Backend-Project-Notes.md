@@ -1,7 +1,9 @@
 ---
 title: Simple Bank - Backend Project Notes
 date: 2023-04-18 19:24:51
-tags:
+tags: 
+- simple-bank
+- bankend
 ---
 
 [course list link](https://www.youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE)
