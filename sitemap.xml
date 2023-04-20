@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/</loc>
+    <loc>http://leonhsi.github.io/2023/03/31/Simple-Bank-Lecture-12-Load-Config-by-Viper/</loc>
     
     <lastmod>2023-04-20</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://leonhsi.github.io/2023/04/18/Simple-Bank-Backend-Project-Notes/</loc>
+    <loc>http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/</loc>
     
     <lastmod>2023-04-20</lastmod>
     
@@ -55,6 +55,51 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/</loc>
+    
+    <lastmod>2023-04-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/2023/03/18/Simple-Bank-Lecture-07-DB-Transaction-Lock/</loc>
+    
+    <lastmod>2023-04-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/2023/03/20/Simple-Bank-Lecture-08-Avoid-Deadlock/</loc>
+    
+    <lastmod>2023-04-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/2023/03/20/Simple-Bank-Lecture-09-Isolation-Level/</loc>
+    
+    <lastmod>2023-04-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/2023/03/30/Simple-Bank-Lecture-11-RESTful-API-with-GIN/</loc>
+    
+    <lastmod>2023-04-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>http://leonhsi.github.io/</loc>
@@ -79,7 +124,7 @@
   </url>
   
   <url>
-    <loc>http://leonhsi.github.io/tags/bankend/</loc>
+    <loc>http://leonhsi.github.io/tags/backend/</loc>
     <lastmod>2023-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

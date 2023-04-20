@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B24J5DZWNJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-B24J5DZWNJ');
+    </script>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="course list link gomock:  use gomock to mock db to return hard coded values 用來測試server HTTP API handling  in server.go, NewServer(store *db.Store) 都是接收一個db store object, 這個store object會連接到真正的database,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simple Bank - Lecture 13: Mock DB for testing HTTP API">
+<meta property="og:url" content="http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/index.html">
+<meta property="og:site_name" content="Leon Hsi&#39;s Blog">
+<meta property="og:description" content="course list link gomock:  use gomock to mock db to return hard coded values 用來測試server HTTP API handling  in server.go, NewServer(store *db.Store) 都是接收一個db store object, 這個store object會連接到真正的database,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-04-20T15:27:12.000Z">
+<meta property="article:modified_time" content="2023-04-20T15:37:46.770Z">
+<meta property="article:author" content="Leon Hsi">
+<meta property="article:tag" content="simple-bank">
+<meta property="article:tag" content="backend">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Simple Bank - Lecture 13: Mock DB for testing HTTP API</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B24J5DZWNJ"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-B24J5DZWNJ');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Leon Hsi's Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&text=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&is_video=false&description=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Simple Bank - Lecture 13: Mock DB for testing HTTP API&body=Check out this article: http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&name=Simple Bank - Lecture 13: Mock DB for testing HTTP API&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&t=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Test-HTTP-API"><span class="toc-number">1.</span> <span class="toc-text">Test HTTP API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gin-TestMode"><span class="toc-number">2.</span> <span class="toc-text">Gin TestMode</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Simple Bank - Lecture 13: Mock DB for testing HTTP API
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Leon Hsi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-04-20T15:27:12.000Z" class="dt-published" itemprop="datePublished">2023-04-20</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/tech/">tech</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="p-category" href="/tags/backend/" rel="tag">backend</a>, <a class="p-category" href="/tags/simple-bank/" rel="tag">simple-bank</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE">course list link</a></p>
+<p>gomock:</p>
+<ul>
+<li>use gomock to mock db to return hard coded values</li>
+<li>用來測試server HTTP API handling</li>
+</ul>
+<p>in server.go, NewServer(store *db.Store) 都是接收一個db store object,</p>
+<p>這個store object會連接到真正的database, 即是需要去mock這個object</p>
+<p>為了產生mock的db, 把store object換成一個interface,</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type Store interface &#123;</span><br><span class="line">	Querier</span><br><span class="line">	TransferTX(....)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Store struct &#123;</span><br><span class="line">	db *sql.DB</span><br><span class="line">	*Queries</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用mockgen來產生被mock的store:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mockgen -package &lt;package_name&gt; -destination /path/to/output &lt;module_name&gt;/path/to/interface &lt;interface_name&gt; </span></span><br><span class="line">mockgen -package mockdb -destination db/mock/store.go github.com/techschool/simplebank/db/sqlc Store</span><br></pre></td></tr></table></figure>
+<p>在<code>db/mock/</code>裡的<code>store.go</code>裡面的<code>MockStore</code>就是a mock of Store interface</p>
+<h3 id="Test-HTTP-API"><a href="#Test-HTTP-API" class="headerlink" title="Test HTTP API"></a>Test HTTP API</h3><p>接著就可以在<code>api</code> package裡面新增一個檔案<code>account_test.go</code>來測試account handler</p>
+<p>在account handler裡面用一個function <code>TestGetAccountAPI()</code>來測試<code>getAccount</code></p>
+<p>這個function主要負責:</p>
+<ol>
+<li>產生一個MockStore object <code>store</code></li>
+<li>產生stubs: 即設定<code>store</code>裡的GetAccount function的參數, 呼叫次數和回傳值</li>
+<li>利用假的<code>store</code>產生新的<code>server</code> object, 開始傳送request</li>
+<li>傳送<code>/account/id</code> url來測試account handler裡面的<code>getAccount</code>是否正確</li>
+<li>檢查status code是否為200 OK, body的內容是否為假<code>store</code>所回傳的account</li>
+</ol>
+<p>總之就是利用假的store物件來創立server, 寫死database(<code>store</code> object)要回傳的值, 來測試HTTP GET METHOD是否正確</p>
+<p>接下來要擴充test case, 加入<code>NotFound</code>, <code>InternalError</code> 跟 <code>InvalidID</code>的測試, 來達到<code>getAccount</code> 的code coverage 100%</p>
+<p>為了程式碼的整潔性, 使用golang的anonymous struct, 即不宣告struct而是直接建立<br>example:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">foo := <span class="keyword">struct</span> &#123;</span><br><span class="line">    id <span class="type">int64</span>,</span><br><span class="line">    name <span class="type">string</span></span><br><span class="line">&#125; &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    name: <span class="string">&quot;trash&quot;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以利用到struct的好處, 將資料都集中在一起, 且只會被用到一次的話就不用特別再宣告命名它</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">testCases := []<span class="keyword">struct</span> &#123;</span><br><span class="line">    name          <span class="type">string</span></span><br><span class="line">    accountID     <span class="type">int64</span></span><br><span class="line">    buildStubs    <span class="function"><span class="keyword">func</span><span class="params">(store *mockdb.MockStore)</span></span></span><br><span class="line">    checkResponse <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, recorder *httptest.ResponseRecorder)</span></span></span><br><span class="line">&#125;&#123;</span><br><span class="line">    &#123;   <span class="comment">// test case 1</span></span><br><span class="line">        name:         <span class="string">&quot;test OK&quot;</span>,          </span><br><span class="line">		accountID:    account.ID,</span><br><span class="line">		buildStubs    <span class="function"><span class="keyword">func</span><span class="params">(store *mockdb.MockStore)</span></span>&#123;</span><br><span class="line">            <span class="comment">// buildStubs implementation</span></span><br><span class="line">        &#125;,</span><br><span class="line">		checkResponse <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, recorder *httptest ResponseRecorder)</span></span>&#123;</span><br><span class="line">            <span class="comment">// checkResponse implementation</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#123;   <span class="comment">// test case 2</span></span><br><span class="line">        name:         <span class="string">&quot;test NotFound&quot;</span>,          </span><br><span class="line">		accountID:    account.ID,</span><br><span class="line">		buildStubs    <span class="function"><span class="keyword">func</span><span class="params">(store *mockdb.MockStore)</span></span>&#123;&#125;,</span><br><span class="line">		checkResponse <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, recorder *httptest ResponseRecorder)</span></span>&#123;&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#123;   <span class="comment">// test case 3</span></span><br><span class="line">        name:         <span class="string">&quot;test InternalError&quot;</span>,          </span><br><span class="line">		accountID:    account.ID,</span><br><span class="line">		buildStubs    <span class="function"><span class="keyword">func</span><span class="params">(store *mockdb.MockStore)</span></span>&#123;&#125;,</span><br><span class="line">		checkResponse <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, recorder *httptest ResponseRecorder)</span></span>&#123;&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#123;   <span class="comment">// test case 4</span></span><br><span class="line">        name:         <span class="string">&quot;test InvalidID&quot;</span>,          </span><br><span class="line">		accountID:    account.ID,</span><br><span class="line">		buildStubs    <span class="function"><span class="keyword">func</span><span class="params">(store *mockdb.MockStore)</span></span>&#123;&#125;,</span><br><span class="line">		checkResponse <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, recorder *httptest ResponseRecorder)</span></span>&#123;&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>testCase</code>是一個array of anonymous struct, 這個anonymous struct包含:</p>
+<ul>
+<li>測試的名字, </li>
+<li>要被抓取的accountID, </li>
+<li><code>buildStubs</code>設定假的<code>store</code>物件的<code>GetAccount</code> method的參數、呼叫次數跟回傳值等等, </li>
+<li><code>checkResponse</code>檢查http response的status跟body</li>
+</ul>
+<p>因為<code>getAccount</code>總共可能會產生四種status:</p>
+<ul>
+<li>OK</li>
+<li>Bad Request: accountID不可能存在於datebase (i.e., 小於1)</li>
+<li>Not Found: accountID不存在於database</li>
+<li>Internal Error: 連不上database</li>
+</ul>
+<p>所以就建立四種testCase, 有各自定義好的accountID, <code>buildStubs</code>, <code>checkResponse</code>等等</p>
+<p>如此就包含了<code>getAccount</code>的所有status, 達到code coverage 100%</p>
+<h3 id="Gin-TestMode"><a href="#Gin-TestMode" class="headerlink" title="Gin TestMode"></a>Gin TestMode</h3><p>在vscode上面run <code>api</code>的package test時, GIN會印出很多重複性log導致眼花撩亂, 這是因為GIN的預設模式是debug mode</p>
+<p>解決方法是在<code>api</code> package裡面建立一個<code>main_test.go</code>, 並在<code>TestMain</code> function裡面設定GIN為TestMode就好了</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/categories/">categories</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Test-HTTP-API"><span class="toc-number">1.</span> <span class="toc-text">Test HTTP API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gin-TestMode"><span class="toc-number">2.</span> <span class="toc-text">Gin TestMode</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&text=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&is_video=false&description=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Simple Bank - Lecture 13: Mock DB for testing HTTP API&body=Check out this article: http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&title=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&name=Simple Bank - Lecture 13: Mock DB for testing HTTP API&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://leonhsi.github.io/2023/04/20/Simple-Bank-Lecture-13-Mock-DB-for-testing-HTTP-API/&t=Simple Bank - Lecture 13: Mock DB for testing HTTP API"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Leon Hsi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
