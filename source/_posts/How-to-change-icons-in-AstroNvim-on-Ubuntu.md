@@ -1,7 +1,10 @@
 ---
 title: How to change icons in AstroNvim on Ubuntu
 date: 2023-04-16 15:28:25
-tags: nvim
+tags: 
+- nvim
+categories:
+- tech
 ---
 
 If you are new to [AstroNvim](https://github.com/AstroNvim/AstroNvim), and haven't installed any fonts on you linux, the default icons in AstroNvim might not be recongnized.
