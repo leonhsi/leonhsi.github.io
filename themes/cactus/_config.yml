@@ -5,7 +5,7 @@
 # Link to a page that gives an overview of all your projects.
 # This can be an external link (e.g., to you GitHub profile) or to another
 # page within your website.
-projects_url: http://github.com/probberechts
+projects_url: http://github.com/leonhsi
 
 # Set the page direction to RTL or LTR. default is LTR. (if you set it 'rtl', the 'vazir' font will be loaded.)
 direction: ltr
@@ -17,7 +17,10 @@ nav:
   home: /
   about: /about/
   articles: /archives/
-  projects: http://github.com/probberechts
+  # projects: http://github.com/leonhsi
+  tags: /tags/
+  categories: /categories/
+  search: /search/
 
 
 # Links to your social media accounts.
@@ -29,28 +32,31 @@ nav:
 social_links:
   -
     icon: github
-    link: http://github.com/probberechts/cactus-dark
+    link: http://github.com/leonhsi
   -
-    icon: twitter
-    link: /
-  -
-    icon: facebook
-    link: /
+    icon: linkedin
+    link: http://linkedin.com/in/leon-hsi
+  # -
+    # icon: twitter
+    # link: /
+  # -
+    # icon: facebook
+    # link: /
   -
     icon: mail
-    link: mailto:name@email.com
-  -
-    icon: mastodon
-    label: mastodon.social
-    link: https://mastodon.social/@alice
-  -
-    icon: mastodon
-    label: fosstodon.org
-    link: https://fosstodon.org/@alice
+    link: mailto:leonhsi111@gmail.com
+  # -
+  #   icon: mastodon
+  #   label: mastodon.social
+  #   link: https://mastodon.social/@alice
+  # -
+  #   icon: mastodon
+  #   label: fosstodon.org
+  #   link: https://fosstodon.org/@alice
 
 # Customize the overview with displaying a tagcloud on the index page.
 # Options: https://hexo.io/docs/helpers.html#tagcloud
-tags_overview: false
+tags_overview: true 
 
 # Customize the overview with the most recent blog posts on the index page.
 # Options:
@@ -79,7 +85,7 @@ post:
 # Customize the copyright years
 # Note: if start_year/end_year not provided, will use current year.
 copyright:
-  start_year: 2016
+  start_year: 2023
   end_year:
 
 # Customize the 404 page
