@@ -48,6 +48,7 @@ highlight:
   enable: true
   line_number: true
   auto_detect: false
+  first_line_number: 'inline' # 'always 1'
   tab_replace: ''
   wrap: true
   hljs: false
