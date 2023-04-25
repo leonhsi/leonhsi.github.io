@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://i.imgur.com/rauPWx3.png">
 <meta property="og:image" content="https://i.imgur.com/BYnpgVJ.png">
 <meta property="article:published_time" content="2023-04-16T07:28:25.000Z">
-<meta property="article:modified_time" content="2023-04-25T05:00:38.550Z">
+<meta property="article:modified_time" content="2023-04-25T05:33:28.545Z">
 <meta property="article:author" content="Leon Hsi">
 <meta property="article:tag" content="nvim">
 <meta name="twitter:card" content="summary">
@@ -193,19 +193,19 @@
 
 <h2 id="Install-Nerd-Fonts-on-Linux"><a href="#Install-Nerd-Fonts-on-Linux" class="headerlink" title="Install Nerd Fonts on Linux"></a>Install Nerd Fonts on Linux</h2><p>Choose the font you like (I choose DejaVuSansMono), download it on <a target="_blank" rel="noopener" href="https://www.nerdfonts.com/font-downloads">Nerd Fonts</a> and unzip the compressed file.</p>
 <p>Then, install the fonts on linux:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip DejaVuSansMono.zip</span><br><span class="line"><span class="built_in">cp</span> -r DejaVuSansMono/* ~/.local/share/fonts/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unzip DejaVuSansMono.zip</span><br><span class="line"><span class="built_in">cp</span> -r DejaVuSansMono/* ~/.local/share/fonts/</span><br></pre></td></tr></table></figure>
 
 <p>Update the font-cache:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fc-cache -fv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fc-cache -fv</span><br></pre></td></tr></table></figure>
 
 <p>Change the fonts for terminal:</p>
 <img style="display: block; margin: auto;" src="https://i.imgur.com/BYnpgVJ.png"/>
 
 <h2 id="Change-Config-File-in-Nvim"><a href="#Change-Config-File-in-Nvim" class="headerlink" title="Change Config File in Nvim"></a>Change Config File in Nvim</h2><p>Go to nvim config directory:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.config/nvim/user</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.config/nvim/user</span><br></pre></td></tr></table></figure>
 
 <p>Change <code>icons_enabled</code> to <code>true</code> in the <code>init.lua</code> file:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">  options = &#123;</span><br><span class="line">    g = &#123;</span><br><span class="line">      icons_enabled = <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">  options = &#123;</span><br><span class="line">    g = &#123;</span><br><span class="line">      icons_enabled = <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Since nerd fonts is installed, the icons should be working right now.</p>
 <p>See the official <a target="_blank" rel="noopener" href="https://astronvim.com/Recipes/icons">Doc</a> for more details.</p>

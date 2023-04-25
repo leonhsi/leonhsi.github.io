@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://leonhsi.github.io/search/index.html</loc>
+    
+    <lastmod>2023-04-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://leonhsi.github.io/tags/index.html</loc>
+    
+    <lastmod>2023-04-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://leonhsi.github.io/2023/04/16/How-to-change-icons-in-AstroNvim-on-Ubuntu/</loc>
     
     <lastmod>2023-04-25</lastmod>
@@ -84,24 +102,6 @@
   
   <url>
     <loc>http://leonhsi.github.io/categories/index.html</loc>
-    
-    <lastmod>2023-04-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://leonhsi.github.io/search/index.html</loc>
-    
-    <lastmod>2023-04-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://leonhsi.github.io/tags/index.html</loc>
     
     <lastmod>2023-04-25</lastmod>
     
